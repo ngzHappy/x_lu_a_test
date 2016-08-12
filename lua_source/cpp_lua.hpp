@@ -373,7 +373,7 @@ inline auto insert(State*L,int idx)->void { return lua_rotate(L,idx,1); }
 /**/
 inline auto remove(State*L,int idx) ->void { lua_rotate(L,(idx),-1); return pop(L,1); }
 /**/
-inline auto replace(State*L,int idx) ->void { lua_copy(L,-1,(idx)); return pop(L,1); };
+inline auto replace(State*L,int idx) ->void { lua_copy(L,-1,(idx)); return pop(L,1); }
 
 inline namespace _debug_api_ {
 
@@ -416,18 +416,18 @@ inline auto gethookcount(State *L)->int { return lua_gethookcount(L); }
 
 inline namespace _import_lualib_h {
 
-inline auto  open_base(State *L)->int { return luaopen_base(L); };
-inline auto  open_coroutine(State *L)->int { return luaopen_coroutine(L); };
-inline auto  open_table(State *L)->int { return luaopen_table(L); };
-inline auto  open_io(State *L)->int { return luaopen_io(L); };
-inline auto  open_os(State *L)->int { return luaopen_os(L); };
-inline auto  open_string(State *L)->int { return luaopen_string(L); };
-inline auto  open_utf8(State *L)->int { return luaopen_utf8(L); };
-inline auto  open_bit32(State *L)->int { return luaopen_bit32(L); };
-inline auto  open_math(State *L)->int { return luaopen_math(L); };
-inline auto  open_debug(State *L)->int { return luaopen_debug(L); };
-inline auto  open_package(State *L)->int { return luaopen_package(L); };
-inline auto  openlibs(State *L)->void { return luaL_openlibs(L); };
+inline auto open_base(State *L)->int { return luaopen_base(L); }
+inline auto open_coroutine(State *L)->int { return luaopen_coroutine(L); }
+inline auto open_table(State *L)->int { return luaopen_table(L); }
+inline auto open_io(State *L)->int { return luaopen_io(L); }
+inline auto open_os(State *L)->int { return luaopen_os(L); }
+inline auto open_string(State *L)->int { return luaopen_string(L); }
+inline auto open_utf8(State *L)->int { return luaopen_utf8(L); }
+inline auto open_bit32(State *L)->int { return luaopen_bit32(L); }
+inline auto open_math(State *L)->int { return luaopen_math(L); }
+inline auto open_debug(State *L)->int { return luaopen_debug(L); }
+inline auto open_package(State *L)->int { return luaopen_package(L); }
+inline auto openlibs(State *L)->void { return luaL_openlibs(L); }
 
 }/*_import_lualib_h*/
 
@@ -447,7 +447,7 @@ enum RefOptions :enum_base_type {
 };
 
 inline auto checkversion_(lua::State *L,lua_Number ver,size_t sz)->void { luaL_checkversion_(L,ver,sz); }
-inline auto checkversion(lua::State *L) ->void{ return checkversion_(L,LUA_VERSION_NUM,LUAL_NUMSIZES); }
+inline auto checkversion(lua::State *L) ->void { return checkversion_(L,LUA_VERSION_NUM,LUAL_NUMSIZES); }
 inline auto getmetafield(lua::State *L,int obj,const char *e)->lua::BaseTypes { return static_cast<lua::BaseTypes>(luaL_getmetafield(L,obj,e)); }
 inline auto callmeta(lua::State *L,int obj,const char *e)->bool { return luaL_callmeta(L,obj,e)>0; }
 inline auto tolstring(lua::State *L,int idx,size_t *len)->const char * { return luaL_tolstring(L,idx,len); }
@@ -484,21 +484,21 @@ inline auto setfuncs(lua::State *L,const Reg *l,int nup)->void { return luaL_set
 inline auto getsubtable(lua::State *L,int idx,const char *fname)->bool { return luaL_getsubtable(L,idx,fname)>0; }
 inline auto traceback(lua::State *L,lua::State *L1,const char *msg,int level)->void { return luaL_traceback(L,L1,msg,level); }
 inline auto requiref(lua::State *L,const char *modname,lua::CFunction openf,int glb)->void { return luaL_requiref(L,modname,openf,glb); }
-inline auto loadfile(lua::State * L,const char *f)->decltype(auto) { return loadfilex(L,f,nullptr); };
+inline auto loadfile(lua::State * L,const char *f)->decltype(auto) { return loadfilex(L,f,nullptr); }
 template<std::size_t _N_>
 inline auto newlibtable(lua::State *L,const Reg(&l)[_N_])->void { return lua_createtable(L,0,sizeof(l)/sizeof((l)[0])-1); }
 template<std::size_t _N_>
 inline auto newlib(lua::State *L,const Reg(&l)[_N_])->void { checkversion(L); newlibtable(L,l); return setfuncs(L,l,0); }
 inline auto argcheck(lua::State * L,int cond,int arg,const char *extramsg)->void { return ((void)((cond)||luaL_argerror(L,(arg),(extramsg)))); }
-inline auto checkstring(lua::State *L,int n) ->const char *{ return checklstring(L,n,nullptr); }
+inline auto checkstring(lua::State *L,int n) ->const char * { return checklstring(L,n,nullptr); }
 inline auto optstring(lua::State * L,int n,const char *d)->const char * { return optlstring(L,n,d,nullptr); }
-inline auto type_name(lua::State *L,int i)->const char * {return lua::type_name(L,lua::type(L,(i)));}
+inline auto type_name(lua::State *L,int i)->const char * { return lua::type_name(L,lua::type(L,(i))); }
 /*false is no error ,true is has error*/
-inline auto dofile(lua::State *L,const char * fn) ->bool{return (loadfile(L,fn)||lua::pcall(L,0,LUA_MULTRET,0)); }
+inline auto dofile(lua::State *L,const char * fn) ->bool { return (loadfile(L,fn)||lua::pcall(L,0,LUA_MULTRET,0)); }
 /*false is no error ,true is has error*/
-inline auto dostring(lua::State *L,const char *s) ->bool{ return (luaL_loadstring(L,s)||lua_pcall(L,0,LUA_MULTRET,0)); }
-inline auto getmetatable(lua::State * L,const char * n) ->lua::BaseTypes{ return (lua::getfield(L,LUA_REGISTRYINDEX,(n))); }
-inline auto loadbuffer(lua::State *L,const char *s,size_t sz,const char *n) {return loadbufferx(L,s,sz,n,NULL);}
+inline auto dostring(lua::State *L,const char *s) ->bool { return (luaL_loadstring(L,s)||lua_pcall(L,0,LUA_MULTRET,0)); }
+inline auto getmetatable(lua::State * L,const char * n) ->lua::BaseTypes { return (lua::getfield(L,LUA_REGISTRYINDEX,(n))); }
+inline auto loadbuffer(lua::State *L,const char *s,size_t sz,const char *n) { return loadbufferx(L,s,sz,n,NULL); }
 
 }/*_import_luaxlib_h*/
 
