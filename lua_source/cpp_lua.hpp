@@ -500,6 +500,19 @@ inline auto dostring(lua::State *L,const char *s) ->bool { return (luaL_loadstri
 inline auto getmetatable(lua::State * L,const char * n) ->lua::BaseTypes { return (lua::getfield(L,LUA_REGISTRYINDEX,(n))); }
 inline auto loadbuffer(lua::State *L,const char *s,size_t sz,const char *n) { return loadbufferx(L,s,sz,n,NULL); }
 
+typedef luaL_Buffer Buffer;
+
+inline auto buffinit(lua_State *L,luaL_Buffer *B)->void { return luaL_buffinit(L,B); }
+inline auto prepbuffsize(luaL_Buffer *B,size_t sz)->char * { return luaL_prepbuffsize(B,sz); }
+inline auto addlstring(luaL_Buffer *B,const char *s,size_t l)->void { return luaL_addlstring(B,s,l); }
+inline auto addstring(luaL_Buffer *B,const char *s)->void { return luaL_addstring(B,s); }
+inline auto addvalue(luaL_Buffer *B)->void { return luaL_addvalue(B); }
+inline auto pushresult(luaL_Buffer *B)->void { return luaL_pushresult(B); }
+inline auto pushresultsize(luaL_Buffer *B,size_t sz)->void { return luaL_pushresultsize(B,sz); }
+inline auto buffinitsize(lua_State *L,luaL_Buffer *B,size_t sz)->char * { return luaL_buffinitsize(L,B,sz); }
+inline auto addchar(Buffer *B,char c)->void { luaL_addchar(B,c); };
+inline auto addsize(Buffer *B,std::size_t s)->void { ((B)->n+=(s)); }
+inline auto prepbuffer(Buffer *B) ->char * { return prepbuffsize(B,LUAL_BUFFERSIZE); }
 }/*_import_luaxlib_h*/
 
 }/*luaL*/
