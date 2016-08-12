@@ -1,4 +1,4 @@
 *.exe
 *.user
 binlib/*
-*.autoszve
+*.autosave
