@@ -1,3 +1,4 @@
+
 CONFIG += c++14
 CONFIG += console
 
@@ -15,6 +16,7 @@ win32-msvc*{
         THIS_PROJECT_DESTDIR=$$PWD/binlib/release_msvc_bin
     }
 }else{
+    QMAKE_CFLAGS+=-std=c11
     CONFIG(debug,debug|release){
         THIS_PROJECT_DESTDIR=$$PWD/binlib/debug_common_bind
     }else{

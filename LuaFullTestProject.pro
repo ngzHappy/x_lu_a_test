@@ -13,7 +13,11 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     lua \
-    lua_wrap
+    lua_wrap \
+    Trait \
+    exception
+
+
 
 
 
