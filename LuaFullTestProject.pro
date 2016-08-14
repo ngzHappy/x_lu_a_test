@@ -15,7 +15,8 @@ SUBDIRS += \
     lua \
     lua_wrap \
     Trait \
-    exception
+    exception \
+    number_string
 
 
 
